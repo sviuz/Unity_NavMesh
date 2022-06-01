@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +10,6 @@ namespace _Scripts {
     private Transform _goal;
 
     private Animator _animator;
-
     private NavMeshAgent _agent;
 
     private void Awake() {
@@ -15,10 +17,17 @@ namespace _Scripts {
       _animator = GetComponent<Animator>();
       _agent.SetDestination(_goal.position);
       _animator.SetBool("Run", true);
+      _agent.SetDestination(_goal.position);
     }
 
+    /*private IEnumerator Running() {
+      while (true) {
+        
+      }
+    }*/
+
     private void Update() {
-      if (_agent.remainingDistance >= 1f) {
+      if (_agent.remainingDistance >= _agent.stoppingDistance) {
         _animator.SetBool("Run", true);
         _agent.destination = _goal.position;
       } else {

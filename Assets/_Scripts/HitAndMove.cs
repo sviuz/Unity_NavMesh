@@ -6,6 +6,9 @@ namespace _Scripts {
   public class HitAndMove : MonoBehaviour {
     [SerializeField]
     private GameObject _targetParticle;
+
+    [SerializeField] private Camera _camera;
+    
     private NavMeshAgent _agent;
     private Animator _animator;
     private float distance;
@@ -18,7 +21,7 @@ namespace _Scripts {
 
     private void Update() {
       if (Input.GetMouseButtonUp(0)) {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         if (!Physics.Raycast(ray, out var hit, 100)) return;
         if (!hit.collider.CompareTag("Walkable")) return;
