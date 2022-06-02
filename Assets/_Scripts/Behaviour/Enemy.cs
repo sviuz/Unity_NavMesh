@@ -17,5 +17,9 @@ namespace _Scripts.Behaviour {
         _moveTo.SetGoal(null);
       }
     }
+
+    private void Start() {
+      
+    }
   }
 }
