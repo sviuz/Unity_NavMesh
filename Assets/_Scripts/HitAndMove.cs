@@ -8,6 +8,8 @@ namespace _Scripts {
     private GameObject _targetParticle;
 
     [SerializeField] private Camera _camera;
+
+    [SerializeField] private LayerMask _layerMask;
     
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -23,10 +25,9 @@ namespace _Scripts {
       if (Input.GetMouseButtonUp(0)) {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        if (!Physics.Raycast(ray, out var hit, 100)) return;
+        if (!Physics.Raycast(ray, out var hit, 100,_layerMask)) return;
         if (!hit.collider.CompareTag("Walkable")) return;
 
-        Debug.Log(hit.transform.name);
         _animator.SetBool("Run", true);
         _agent.SetDestination(hit.point);
         var pos = new Vector3(hit.point.x, 0.1f, hit.point.z);
@@ -37,8 +38,6 @@ namespace _Scripts {
       }
       
       if (_agent.remainingDistance <= minDistance && _agent.remainingDistance >0  && moving) {
-        Debug.Log(_agent.remainingDistance.ToString());
-        Debug.Log("WaDWAD");
         _animator.SetBool("Run", false);
         moving = false;
       }
